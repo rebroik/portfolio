@@ -3,128 +3,349 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Portfolio</title>
+    <!-- Подключаем шрифты, как на оригинальном сайте для стиля -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;600;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
-    <div class="custom-cursor">
-        <div class="cursor-rotator">
-            <div class="cursor-dot"></div>
-            <div class="cursor-corner cursor-corner-tl"></div>
-            <div class="cursor-corner cursor-corner-tr"></div>
-            <div class="cursor-corner cursor-corner-br"></div>
-            <div class="cursor-corner cursor-corner-bl"></div>
+    <!-- Курсор: уголки вращаются, точка двигается свободно внутри -->
+    <div class="c-cursor">
+        <div class="c-cursor__inner">
+            <div class="c-cursor__corner c-cursor__corner--tl"></div>
+            <div class="c-cursor__corner c-cursor__corner--tr"></div>
+            <div class="c-cursor__corner c-cursor__corner--br"></div>
+            <div class="c-cursor__corner c-cursor__corner--bl"></div>
         </div>
+        <div class="c-cursor__dot"></div>
     </div>
+
+
     <div class="box">
         <nav>
-            <img src="https://i.pinimg.com/236x/89/c8/35/89c835d16db165d4388c217ecb4925d5.jpg" alt="" class="nav_img">
+            <img src="https://i.pinimg.com/236x/89/c8/35/89c835d16db165d4388c217ecb4925d5.jpg" alt="Logo" class="nav_img">
             <div class="navigation">
-                <a href="#">Home</a>
-                <a href="#">About</a>
-                <a href="#">Skills</a>
-                <a href="#">Experience</a>
-                <a href="#">Projects</a>
-                <a href="#">Contact</a>
+                <a href="#header">Home</a>
+                <a href="#about">About</a>
+                <a href="#skills">Skills</a>
+                <a href="#experience">Experience</a>
+                <a href="#projects">Projects</a>
+                <a href="#contact">Contact</a>
             </div>
             <div class="switch">
-                <img src="img/lun_dark.png" alt="" class="dark_mode">
-                <img src="img/sun_light.png" alt="" class="light_mode">
+                <img src="img/lun_dark.png" alt="Dark Mode" class="dark_mode">
+                <img src="img/sun_light.png" alt="Light Mode" class="light_mode">
             </div>
         </nav>
-        <header></header>
-        <div class="about_me"></div>
+        <header class="hero_section" id="header">
+            <div class="hero_content">
+                <span class="hero_subtitle">HI THERE! I'M</span>
+                <h1 class="hero_title">A FRONTEND<br><span>DEVELOPER</span></h1>
+                <p class="hero_description">
+                    I build clean, modern, and interactive digital experiences. 
+                    Focused on creating high-performance web applications that look and feel flawless.
+                </p>
+                <div class="hero_buttons">
+                    <a href="#" class="btn_primary">Let's Talk</a>
+                </div>
+            </div>
+            
+            <div class="hero_image_box">
+                <div class="hero_bg_text">⬉ это не я) это очень крутой чел</div>
+                <div class="tilt-card">
+                    <div class="card-content">
+                        <img src="https://i.pinimg.com/236x/89/c8/35/89c835d16db165d4388c217ecb4925d5.jpg" alt="Developer Photo" class="hero_main_img">
+                    </div>
+                </div>
+            </div>
+        </header>
+        <div class="about_me" id="about">
+            <h2 class="section_title glitch-text" data-text="ABOUT ME">ABOUT ME</h2>
+            <p class="about_description">
+                I'm a passionate frontend developer with a knack for crafting seamless user experiences. 
+                With a strong foundation in HTML, CSS, and JavaScript, I specialize in building responsive and interactive web applications. 
+                I thrive on turning complex problems into elegant solutions and am always eager to learn new technologies and techniques.
+            </p>
+        </div>
     </div>
 
+
+
+
+
+
+
+
+
+
     <script>
-        const darkMode = document.querySelector(".dark_mode");
-        const lightMode = document.querySelector(".light_mode");
+    const cursor  = document.querySelector('.c-cursor');
+    const inner   = document.querySelector('.c-cursor__inner');
+    const dot     = document.querySelector('.c-cursor__dot');
+    const corners = {
+        tl: document.querySelector('.c-cursor__corner--tl'),
+        tr: document.querySelector('.c-cursor__corner--tr'),
+        br: document.querySelector('.c-cursor__corner--br'),
+        bl: document.querySelector('.c-cursor__corner--bl'),
+    };
 
-        darkMode.addEventListener("click", () => {
-            document.body.classList.toggle("dark");
+    let mouseX = 0, mouseY = 0;
+    let curX   = 0, curY   = 0;
+    let dotX   = 0, dotY   = 0;
+    let hovered  = null;
+    let angle    = 0;
+    let spinning = true;
+
+    // Пружинная физика для каждого уголка
+    const spring = {
+        tl: { x: 0, y: 0, vx: 0, vy: 0 },
+        tr: { x: 0, y: 0, vx: 0, vy: 0 },
+        br: { x: 0, y: 0, vx: 0, vy: 0 },
+        bl: { x: 0, y: 0, vx: 0, vy: 0 },
+    };
+
+    // Скорость мыши
+    let prevMouseX = 0, prevMouseY = 0;
+    let velX = 0, velY = 0;
+
+    const lerp  = (a, b, t) => a + (b - a) * t;
+    const clamp = (v, min, max) => Math.max(min, Math.min(max, v));
+
+    document.addEventListener('mousemove', e => {
+        velX = e.clientX - mouseX;
+        velY = e.clientY - mouseY;
+        mouseX = e.clientX;
+        mouseY = e.clientY;
+    });
+
+    // Коэффициенты пружины
+    const STIFFNESS = 0.08;  // насколько сильно тянет обратно
+    const DAMPING   = 0.75;  // затухание (меньше = дольше колышется)
+    const PUSH      = 10;   // насколько сильно мышь «толкает» уголки
+
+    function tickSpring(s, targetX, targetY) {
+        const forceX = -s.x * STIFFNESS;
+        const forceY = -s.y * STIFFNESS;
+        s.vx = (s.vx + forceX) * DAMPING;
+        s.vy = (s.vy + forceY) * DAMPING;
+        s.x += s.vx;
+        s.y += s.vy;
+    }
+
+    function tick() {
+        let targetX, targetY, speed;
+
+        if (hovered) {
+            const r  = hovered.getBoundingClientRect();
+            const cx = r.left + r.width  / 2;
+            const cy = r.top  + r.height / 2;
+            targetX = cx + (mouseX - cx) * 0.10;
+            targetY = cy + (mouseY - cy) * 0.10;
+            speed   = 0.10;
+        } else {
+            targetX = mouseX;
+            targetY = mouseY;
+            speed   = 0.20;
+        }
+
+        curX = lerp(curX, targetX, speed);
+        curY = lerp(curY, targetY, speed);
+        cursor.style.left = curX + 'px';
+        cursor.style.top  = curY + 'px';
+
+
+        if (hovered) {
+            const r   = hovered.getBoundingClientRect();
+            const hw  = r.width  + 20;
+            const hh  = r.height + 20;
+            const pad = 8;
+            const offsetX = mouseX - curX;
+            const offsetY = mouseY - curY;
+            dotX = lerp(dotX, clamp(offsetX, -(hw/2 - pad), hw/2 - pad), 0.16);
+            dotY = lerp(dotY, clamp(offsetY, -(hh/2 - pad), hh/2 - pad), 0.16);
+        } else {
+            dotX = lerp(dotX, 0, 0.16);
+            dotY = lerp(dotY, 0, 0.16);
+        }
+        dot.style.transform = `translate(calc(-50% + ${dotX}px), calc(-50% + ${dotY}px))`;
+
+
+        if (hovered) {
+
+            const r  = hovered.getBoundingClientRect();
+            const hw = r.width  + 20;
+            const hh = r.height + 20;
+
+            // Базовые позиции уголков (центр контейнера = 0,0)
+            const base = {
+                tl: { x: -hw/2, y: -hh/2 },
+                tr: { x:  hw/2, y: -hh/2 },
+                br: { x:  hw/2, y:  hh/2 },
+                bl: { x: -hw/2, y:  hh/2 },
+            };
+
+            ['tl','tr','br','bl'].forEach(key => {
+                const s = spring[key];
+                const b = base[key];
+                const dx = (mouseX - curX) - b.x;
+                const dy = (mouseY - curY) - b.y;
+                const dist = Math.sqrt(dx*dx + dy*dy) + 1;
+                const influence = clamp(200 / dist, 0.2, 2.0);
+
+                s.vx += velX * PUSH * influence * 0.016;
+                s.vy += velY * PUSH * influence * 0.016;
+
+
+                tickSpring(s);
+
+
+                const maxShift = 14;
+                s.x = clamp(s.x, -maxShift, maxShift);
+                s.y = clamp(s.y, -maxShift, maxShift);
+
+                corners[key].style.transform = `translate(${s.x}px, ${s.y}px)`;
+            });
+        } else {
+            ['tl','tr','br','bl'].forEach(key => {
+                const s = spring[key];
+                tickSpring(s);
+                corners[key].style.transform = `translate(${s.x}px, ${s.y}px)`;
+                if (Math.abs(s.x) < 0.01 && Math.abs(s.y) < 0.01) {
+                    s.x = 0; s.y = 0; s.vx = 0; s.vy = 0;
+                    corners[key].style.transform = '';
+                }
+            });
+        }
+
+
+        if (spinning) {
+            angle += 0.8;
+        } else {
+            angle = angle % 360;
+            if (angle < 0) angle += 360;
+            const target = angle > 180 ? 360 : 0;
+            angle = lerp(angle, target, 0.12);
+            if (Math.abs(angle - target) < 0.1) angle = 0;
+        }
+        inner.style.transform = `rotate(${angle}deg)`;
+
+        requestAnimationFrame(tick);
+    }
+    tick();
+
+
+    const interactive = document.querySelectorAll('a, button, .btn_primary, img.dark_mode, img.light_mode, [data-cursor]');
+
+    interactive.forEach(el => {
+        el.addEventListener('pointerenter', () => {
+            hovered  = el;
+            spinning = false;
+            const r   = el.getBoundingClientRect();
+            const pad = 10;
+            cursor.style.setProperty('--hw', (r.width  + pad * 2) + 'px');
+            cursor.style.setProperty('--hh', (r.height + pad * 2) + 'px');
+            cursor.style.setProperty('--hr', window.getComputedStyle(el).borderRadius);
+            cursor.classList.add('is-hovered');
         });
 
-        lightMode.addEventListener("click", () => {
-            document.body.classList.toggle("light");
-        })
-
-
-
-        const cursor = document.querySelector('.custom-cursor');
-        const cursorCorners = document.querySelectorAll('.cursor-corner');
-        const cursorDot = document.querySelector('.cursor-dot');
-        let hoveredTarget = null;
-        let mouseX = 0;
-        let mouseY = 0;
-        let currentX = 0;
-        let currentY = 0;
-        let targetWidth = 40;
-        let targetHeight = 40;
-
-        const lerp = (start, end, amount) => start + (end - start) * amount;
-
-        const updateCursorSize = (width, height) => {
-            targetWidth = width;
-            targetHeight = height;
-            cursor.style.width = width + 'px';
-            cursor.style.height = height + 'px';
-        };
-
-        const resetCursorSize = () => {
-            targetWidth = 40;
-            targetHeight = 40;
-            cursor.style.width = '40px';
-            cursor.style.height = '40px';
-            cursor.classList.remove('hovered');
-        };
-
-        document.addEventListener('mousemove', (e) => {
-            mouseX = e.clientX;
-            mouseY = e.clientY;
+        el.addEventListener('pointerleave', () => {
+            hovered  = null;
+            spinning = true;
+            cursor.classList.remove('is-hovered');
         });
+    });
 
-        const animateCursor = () => {
-            let targetX = mouseX;
-            let targetY = mouseY;
+    document.addEventListener('mouseleave', () => cursor.style.opacity = '0');
+    document.addEventListener('mouseenter', () => cursor.style.opacity = '1');
 
-            if (hoveredTarget) {
-                const rect = hoveredTarget.getBoundingClientRect();
-                const centerX = rect.left + rect.width / 2;
-                const centerY = rect.top + rect.height / 2;
-                const offsetX = (mouseX - centerX) * 0.38;
-                const offsetY = (mouseY - centerY) * 0.38;
-                targetX = centerX + offsetX;
-                targetY = centerY + offsetY;
+
+
+
+    const GLITCH_CHARS = 'АБВГДЕЖЗИКЛМНОПРСТУФХЦЧШЩЪЫabcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ@#$%&!?<>[]{}|/\\~^*';
+
+    function randomChar() {
+        return GLITCH_CHARS[Math.floor(Math.random() * GLITCH_CHARS.length)];
+    }
+
+    function startGlitch(el, intensity) {
+        const original = el.dataset.text;
+        let frame = 0;
+
+        return setInterval(() => {
+            let result = '';
+            for (let i = 0; i < original.length; i++) {
+                if (original[i] === ' ') { result += ' '; continue; }
+
+                if (Math.random() < intensity) {
+                    result += `<span class="glitch-char">${randomChar()}</span>`;
+                } else {
+                    result += original[i];
+                }
             }
+            el.innerHTML = result;
+            frame++;
+        }, 60);
+    }
 
-            currentX = lerp(currentX, targetX, hoveredTarget ? 0.22 : 0.28);
-            currentY = lerp(currentY, targetY, hoveredTarget ? 0.22 : 0.28);
-            cursor.style.left = currentX + 'px';
-            cursor.style.top = currentY + 'px';
+    function stopGlitch(el, intervalId) {
+        clearInterval(intervalId);
+        el.innerHTML = el.dataset.text;
+    }
 
-            requestAnimationFrame(animateCursor);
-        };
+    document.querySelectorAll('.glitch-text').forEach(el => {
+        let idleInterval = null;
+        let hoverInterval = null;
 
-        animateCursor();
+        // Фоновый лёгкий глитч (всегда активен)
+        idleInterval = startGlitch(el, 0.04);
 
-        // Эффект при наведении на ссылки и кнопки
-        const links = document.querySelectorAll('a, button, img.dark_mode, img.light_mode');
-        links.forEach(link => {
-            link.addEventListener('mouseenter', () => {
-                hoveredTarget = link;
-                const rect = link.getBoundingClientRect();
-                updateCursorSize(rect.width + 24, rect.height + 24);
-                cursor.classList.add('hovered');
-                cursorCorners.forEach(corner => corner.classList.add('active'));
-                cursorDot.classList.add('active');
-            });
-            link.addEventListener('mouseleave', () => {
-                hoveredTarget = null;
-                resetCursorSize();
-                cursorCorners.forEach(corner => corner.classList.remove('active'));
-                cursorDot.classList.remove('active');
-            });
+        el.addEventListener('mouseenter', () => {
+            clearInterval(idleInterval);
+            // Агрессивный глитч при наведении
+            hoverInterval = startGlitch(el, 0.55);
         });
+
+        el.addEventListener('mouseleave', () => {
+            clearInterval(hoverInterval);
+            let decay = 0.55;
+            const decayInterval = setInterval(() => {
+                decay *= 0.75;
+                if (decay < 0.04) {
+                    clearInterval(decayInterval);
+                    el.innerHTML = el.dataset.text;
+                    idleInterval = startGlitch(el, 0.04);
+                    return;
+                }
+                clearInterval(hoverInterval);
+                hoverInterval = startGlitch(el, decay);
+            }, 80);
+        });
+    });
+
+
+
+
+
+    const cards = document.querySelectorAll('.tilt-card');
+
+cards.forEach(card => {
+    card.addEventListener('mousemove', (e) => {
+        const rect = card.getBoundingClientRect();
+        const x = e.clientX - rect.left;
+        const y = e.clientY - rect.top;
+        const xc = card.offsetWidth / 2;
+        const yc = card.offsetHeight / 2;
+        const angleX = (yc - y) / yc * 15;
+        const angleY = (x - xc) / xc * 15;
+        
+        card.style.transform = `perspective(1000px) rotateX(${angleX}deg) rotateY(${angleY}deg) translateZ(30px)`;
+    });
+    card.addEventListener('mouseleave', () => {
+        card.style.transform = `perspective(1000px) rotateX(0deg) rotateY(0deg) translateZ(0px)`;
+    });
+});
     </script>
 </body>
 </html>
