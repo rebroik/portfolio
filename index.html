@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <div class="custom-cursor">
+        <div class="cursor-rotator">
+            <div class="cursor-dot"></div>
+            <div class="cursor-corner cursor-corner-tl"></div>
+            <div class="cursor-corner cursor-corner-tr"></div>
+            <div class="cursor-corner cursor-corner-br"></div>
+            <div class="cursor-corner cursor-corner-bl"></div>
+        </div>
+    </div>
+    <div class="box">
+        <nav>
+            <img src="https://i.pinimg.com/236x/89/c8/35/89c835d16db165d4388c217ecb4925d5.jpg" alt="" class="nav_img">
+            <div class="navigation">
+                <a href="#">Home</a>
+                <a href="#">About</a>
+                <a href="#">Skills</a>
+                <a href="#">Experience</a>
+                <a href="#">Projects</a>
+                <a href="#">Contact</a>
+            </div>
+            <div class="switch">
+                <img src="img/lun_dark.png" alt="" class="dark_mode">
+                <img src="img/sun_light.png" alt="" class="light_mode">
+            </div>
+        </nav>
+        <header></header>
+        <div class="about_me"></div>
+    </div>
+
+    <script>
+        const darkMode = document.querySelector(".dark_mode");
+        const lightMode = document.querySelector(".light_mode");
+
+        darkMode.addEventListener("click", () => {
+            document.body.classList.toggle("dark");
+        });
+
+        lightMode.addEventListener("click", () => {
+            document.body.classList.toggle("light");
+        })
+
+
+
+        const cursor = document.querySelector('.custom-cursor');
+        const cursorCorners = document.querySelectorAll('.cursor-corner');
+        const cursorDot = document.querySelector('.cursor-dot');
+        let hoveredTarget = null;
+        let mouseX = 0;
+        let mouseY = 0;
+        let currentX = 0;
+        let currentY = 0;
+        let targetWidth = 40;
+        let targetHeight = 40;
+
+        const lerp = (start, end, amount) => start + (end - start) * amount;
+
+        const updateCursorSize = (width, height) => {
+            targetWidth = width;
+            targetHeight = height;
+            cursor.style.width = width + 'px';
+            cursor.style.height = height + 'px';
+        };
+
+        const resetCursorSize = () => {
+            targetWidth = 40;
+            targetHeight = 40;
+            cursor.style.width = '40px';
+            cursor.style.height = '40px';
+            cursor.classList.remove('hovered');
+        };
+
+        document.addEventListener('mousemove', (e) => {
+            mouseX = e.clientX;
+            mouseY = e.clientY;
+        });
+
+        const animateCursor = () => {
+            let targetX = mouseX;
+            let targetY = mouseY;
+
+            if (hoveredTarget) {
+                const rect = hoveredTarget.getBoundingClientRect();
+                const centerX = rect.left + rect.width / 2;
+                const centerY = rect.top + rect.height / 2;
+                const offsetX = (mouseX - centerX) * 0.38;
+                const offsetY = (mouseY - centerY) * 0.38;
+                targetX = centerX + offsetX;
+                targetY = centerY + offsetY;
+            }
+
+            currentX = lerp(currentX, targetX, hoveredTarget ? 0.22 : 0.28);
+            currentY = lerp(currentY, targetY, hoveredTarget ? 0.22 : 0.28);
+            cursor.style.left = currentX + 'px';
+            cursor.style.top = currentY + 'px';
+
+            requestAnimationFrame(animateCursor);
+        };
+
+        animateCursor();
+
+        // Эффект при наведении на ссылки и кнопки
+        const links = document.querySelectorAll('a, button, img.dark_mode, img.light_mode');
+        links.forEach(link => {
+            link.addEventListener('mouseenter', () => {
+                hoveredTarget = link;
+                const rect = link.getBoundingClientRect();
+                updateCursorSize(rect.width + 24, rect.height + 24);
+                cursor.classList.add('hovered');
+                cursorCorners.forEach(corner => corner.classList.add('active'));
+                cursorDot.classList.add('active');
+            });
+            link.addEventListener('mouseleave', () => {
+                hoveredTarget = null;
+                resetCursorSize();
+                cursorCorners.forEach(corner => corner.classList.remove('active'));
+                cursorDot.classList.remove('active');
+            });
+        });
+    </script>
+</body>
+</html>
