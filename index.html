@@ -25,7 +25,7 @@
 
     <div class="box">
         <nav>
-            <img src="https://i.pinimg.com/236x/89/c8/35/89c835d16db165d4388c217ecb4925d5.jpg" alt="Logo" class="nav_img">
+            <img src="img/Leha.jpg" alt="Logo" class="nav_img">
             <div class="navigation">
                 <a href="#header">Home</a>
                 <a href="#about">About</a>
@@ -55,9 +55,8 @@
             <div class="hero_image_box">
                 <div class="hero_bg_text">⬉ это не я) это очень крутой чел</div>
                 <div class="tilt-card">
-                    <div class="card-content">
-                        <img src="https://i.pinimg.com/236x/89/c8/35/89c835d16db165d4388c217ecb4925d5.jpg" alt="Developer Photo" class="hero_main_img">
-                    </div>
+                    <img src="img/Leha.jpg" alt="Hero Image" class="hero_image hero_main_img">
+                    <div class="card-content"></div>
                 </div>
             </div>
         </header>
@@ -327,6 +326,22 @@
 
 
 
+
+    // ─── ПЕРЕКЛЮЧЕНИЕ ТЕМЫ ────────────────────────────────────────────────────
+    const darkBtn  = document.querySelector('img.dark_mode');
+    const lightBtn = document.querySelector('img.light_mode');
+
+    function setTheme(theme) {
+        document.body.classList.remove('dark', 'light');
+        document.body.classList.add(theme);
+        localStorage.setItem('theme', theme);
+    }
+
+    // Применяем сохранённую тему при загрузке (по умолчанию — dark)
+    setTheme(localStorage.getItem('theme') || 'dark');
+
+    darkBtn.addEventListener('click',  () => setTheme('dark'));
+    lightBtn.addEventListener('click', () => setTheme('light'));
 
     const cards = document.querySelectorAll('.tilt-card');
 
