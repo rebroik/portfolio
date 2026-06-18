@@ -11,7 +11,7 @@
     <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
-    <!-- Курсор: уголки вращаются, точка двигается свободно внутри -->
+    <!-- Курсор -->
     <div class="c-cursor">
         <div class="c-cursor__inner">
             <div class="c-cursor__corner c-cursor__corner--tl"></div>
@@ -41,8 +41,8 @@
         </nav>
         <header class="hero_section" id="header">
             <div class="hero_content">
-                <span class="hero_subtitle">HI THERE! I'M</span>
-                <h1 class="hero_title">A FRONTEND<br><span>DEVELOPER</span></h1>
+                <span class="hero_subtitle">ПРИВІТ, Я</span>
+                <h1 class="hero_title">ФРОНТЕНД<br><span>РОЗРОБНИК</span></h1>
                 <p class="hero_description">
                     I build clean, modern, and interactive digital experiences. 
                     Focused on creating high-performance web applications that look and feel flawless.
@@ -51,7 +51,11 @@
                     <a href="#" class="btn_primary">Let's Talk</a>
                 </div>
             </div>
-            
+        </header>
+        <div class="about_me" id="about">
+
+            <h2 class="section_title glitch-text" data-text="ABOUT ME">ABOUT ME</h2>
+
             <div class="hero_image_box">
                 <div class="hero_bg_text">⬉ это не я) это очень крутой чел</div>
                 <div class="tilt-card">
@@ -59,15 +63,88 @@
                     <div class="card-content"></div>
                 </div>
             </div>
-        </header>
-        <div class="about_me" id="about">
-            <h2 class="section_title glitch-text" data-text="ABOUT ME">ABOUT ME</h2>
+
             <p class="about_description">
                 I'm a passionate frontend developer with a knack for crafting seamless user experiences. 
                 With a strong foundation in HTML, CSS, and JavaScript, I specialize in building responsive and interactive web applications. 
                 I thrive on turning complex problems into elegant solutions and am always eager to learn new technologies and techniques.
             </p>
         </div>
+
+        <section class="skills_section" id="skills">
+            <div class="skills_container">
+                <h2 class="section_title glitch-text" data-text="MY SKILLS">MY SKILLS</h2>
+                <p class="skills_subtitle">Technologies I work with</p>
+                
+                <div class="skills_grid">
+                    <div class="skill_item">
+                        <div class="skill_icon">
+                            <span class="skill_dot skill-html">H</span>
+                        </div>
+                        <div class="skill_label">HTML</div>
+                    </div>
+                    <div class="skill_item">
+                        <div class="skill_icon">
+                            <span class="skill_dot skill-css">C</span>
+                        </div>
+                        <div class="skill_label">CSS</div>
+                    </div>
+                    <div class="skill_item">
+                        <div class="skill_icon">
+                            <span class="skill_dot skill-js">JS</span>
+                        </div>
+                        <div class="skill_label">JavaScript</div>
+                    </div>
+                    <div class="skill_item">
+                        <div class="skill_icon">
+                            <span class="skill_dot skill-react">R</span>
+                        </div>
+                        <div class="skill_label">React</div>
+                    </div>
+                    <div class="skill_item">
+                        <div class="skill_icon">
+                            <span class="skill_dot skill-node">N</span>
+                        </div>
+                        <div class="skill_label">Node.js</div>
+                    </div>
+                    <div class="skill_item">
+                        <div class="skill_icon">
+                            <span class="skill_dot skill-git">G</span>
+                        </div>
+                        <div class="skill_label">Git</div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="contact_section" id="contact">
+            <div class="contact_inner">
+                <div class="contact_header">
+                    <h1>Contact</h1>
+                    <h2 class="contact_title">Say hello</h2>
+                </div>
+                <form class="contact_form" action="#" method="POST">
+                    <div class="contact_fields">
+                        <input type="text" name="name" placeholder="Enter your name" required>
+                        <input type="email" name="email" placeholder="Enter your email address" required>
+                    </div>
+                    <textarea name="message" rows="6" placeholder="Enter your message" required></textarea>
+                    <div class="contact_submit">
+                        <button type="submit">
+                            Submit
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <path d="M14.536 21.686a.5.5 0 0 0 .937-.024l6.5-19a.496.496 0 0 0-.635-.635l-19 6.5a.5.5 0 0 0-.024.937l7.93 3.18a2 2 0 0 1 1.112 1.11z"></path>
+                                <path d="m21.854 2.147-10.94 10.939"></path>
+                            </svg>
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </section>
+
+        <footer>
+            <p>&copy; 2026 Illia Kucherenko. All rights reserved.</p>
+        </footer>
     </div>
 
 
@@ -235,7 +312,7 @@
     tick();
 
 
-    const interactive = document.querySelectorAll('a, button, .btn_primary, img.dark_mode, img.light_mode, [data-cursor]');
+    const interactive = document.querySelectorAll('a, button, .btn_primary, img.dark_mode, img.light_mode, [data-cursor], .skill_icon');
 
     interactive.forEach(el => {
         el.addEventListener('pointerenter', () => {
