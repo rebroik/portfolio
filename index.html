@@ -4,7 +4,6 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Portfolio</title>
-    <!-- Подключаем шрифты, как на оригинальном сайте для стиля -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;600;800&display=swap" rel="stylesheet">
@@ -41,11 +40,11 @@
         </nav>
         <header class="hero_section" id="header">
             <div class="hero_content">
-                <span class="hero_subtitle">ПРИВІТ, Я</span>
-                <h1 class="hero_title">ФРОНТЕНД<br><span>РОЗРОБНИК</span></h1>
+                <span class="hero_subtitle">HEY, I'M</span>
+                <h1 class="hero_title">FRONTEND<br><span>DEVELOPER</span></h1>
                 <p class="hero_description">
                     I build clean, modern, and interactive digital experiences. 
-                    Focused on creating high-performance web applications that look and feel flawless.
+                    Focused on creating high-performance web sites that look and feel flawless.
                 </p>
                 <div class="hero_buttons">
                     <a href="#" class="btn_primary">Let's Talk</a>
@@ -54,10 +53,10 @@
         </header>
         <div class="about_me" id="about">
 
-            <h2 class="section_title glitch-text" data-text="ABOUT ME">ABOUT ME</h2>
+            <h2 class="section_title glitch-text" data-text="ABOUT ME" style="left: 39%; transform: translateX(-50%);">ABOUT ME</h2>
 
             <div class="hero_image_box">
-                <div class="hero_bg_text">⬉ это не я) это очень крутой чел</div>
+                <div class="hero_bg_text">⬉ this is not me) this is a really cool guy</div>
                 <div class="tilt-card">
                     <img src="img/Leha.jpg" alt="Hero Image" class="hero_image hero_main_img">
                     <div class="card-content"></div>
@@ -65,15 +64,13 @@
             </div>
 
             <p class="about_description">
-                I'm a passionate frontend developer with a knack for crafting seamless user experiences. 
-                With a strong foundation in HTML, CSS, and JavaScript, I specialize in building responsive and interactive web applications. 
-                I thrive on turning complex problems into elegant solutions and am always eager to learn new technologies and techniques.
+                I'm a web developer who just graduated and plan to continue learning new things and improving my skills, not only in coding but also in everyday life. I love minimalist, clean, and understated website design. I really enjoy the different styles that users can interact with. <br> <br> I can work both in a team and on my own. I create designs that I personally would want to look at.
             </p>
         </div>
 
         <section class="skills_section" id="skills">
             <div class="skills_container">
-                <h2 class="section_title glitch-text" data-text="MY SKILLS">MY SKILLS</h2>
+                <h2 class="section_title glitch-text" data-text="MY SKILLS" style="left: 39%; transform: translateX(-50%);">MY SKILLS</h2>
                 <p class="skills_subtitle">Technologies I work with</p>
                 
                 <div class="skills_grid">
@@ -117,11 +114,77 @@
             </div>
         </section>
 
+        <section class="experience_section" id="experience">
+            <div class="experience_container">
+                <h2 class="section_title glitch-text" data-text="EXPERIENCE" style="left: 31%; transform: translateX(-50%);">EXPERIENCE</h2>
+                <p class="experience_subtitle">My journey in web development</p>
+                <div class="experience_timeline">
+                    <div class="experience_ttim">
+                        <div class="experience_circle"></div>
+                        <div class="experience_stick"></div>
+                    </div>
+                    <h3 class="experience_heading">START MY JOURNEY</h3>
+                    <div class="experience_item">
+                        <div class="experience_year">2022</div>
+                        <div class="experience_description">
+                            <h3>Started Learning Web Development</h3>
+                            <p>Began my journey into web development, focusing on HTML, CSS, and JavaScript.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="experience_timeline">
+                    <div class="experience_ttim">
+                        <div class="experience_circle"></div>
+                        <div class="experience_stick"></div>
+                    </div>
+                    <h3 class="experience_heading">REACT AND NODE.JS</h3>
+                    <div class="experience_item">
+                        <div class="experience_year">2024-2025</div>
+                        <div class="experience_description">
+                            <h3>Started Learning React and Node.js</h3>
+                            <p>I am currently learning React and Node.js to build full-stack web applications.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="experience_timeline">
+                    <div class="experience_ttim">
+                        <div class="experience_circle"></div>
+                        <div class="experience_stick"></div>
+                    </div>
+                    <h3 class="experience_heading">FINISHED MY JOURNEY</h3>
+                    <div class="experience_item">
+                        <div class="experience_year">2026</div>
+                        <div class="experience_description">
+                            <h3>My Journey is Complete</h3>
+                            <p>I have completed my journey in web development and am now ready to take on new challenges.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="experience_timeline">
+                    <div class="experience_ttim">
+                        <div class="experience_circle"></div>
+                        <div class="experience_stick"></div>
+                    </div>
+                    <h3 class="experience_heading">NEW CHALLENGES</h3>
+                    <div class="experience_item">
+                        <div class="experience_year">2026+</div>
+                        <div class="experience_description">
+                            <h3>Ready for New Challenges</h3>
+                            <p>I am now ready to take on new challenges and continue growing as a web developer.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
         <section class="contact_section" id="contact">
             <div class="contact_inner">
                 <div class="contact_header">
                     <h1>Contact</h1>
-                    <h2 class="contact_title">Say hello</h2>
+                    <h2 class="contact_title glitch-text" data-text="Say hello" style="left: 50%; transform: translateX(-50%);">Say hello</h2>
                 </div>
                 <form class="contact_form" action="#" method="POST">
                     <div class="contact_fields">
@@ -173,8 +236,7 @@
     let hovered  = null;
     let angle    = 0;
     let spinning = true;
-
-    // Пружинная физика для каждого уголка
+ 
     const spring = {
         tl: { x: 0, y: 0, vx: 0, vy: 0 },
         tr: { x: 0, y: 0, vx: 0, vy: 0 },
@@ -182,7 +244,6 @@
         bl: { x: 0, y: 0, vx: 0, vy: 0 },
     };
 
-    // Скорость мыши
     let prevMouseX = 0, prevMouseY = 0;
     let velX = 0, velY = 0;
 
@@ -196,10 +257,9 @@
         mouseY = e.clientY;
     });
 
-    // Коэффициенты пружины
-    const STIFFNESS = 0.08;  // насколько сильно тянет обратно
-    const DAMPING   = 0.75;  // затухание (меньше = дольше колышется)
-    const PUSH      = 10;   // насколько сильно мышь «толкает» уголки
+    const STIFFNESS = 0.1;
+    const DAMPING   = 0.3;
+    const PUSH      = 13;
 
     function tickSpring(s, targetX, targetY) {
         const forceX = -s.x * STIFFNESS;
@@ -374,12 +434,10 @@
         let idleInterval = null;
         let hoverInterval = null;
 
-        // Фоновый лёгкий глитч (всегда активен)
         idleInterval = startGlitch(el, 0.04);
 
         el.addEventListener('mouseenter', () => {
             clearInterval(idleInterval);
-            // Агрессивный глитч при наведении
             hoverInterval = startGlitch(el, 0.55);
         });
 
