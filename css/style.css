@@ -52,6 +52,9 @@ img.nav_img, img.dark_mode, img.light_mode {
   object-fit: cover;
   margin-left: 10%;
 }
+body.light nav{
+  background-color: #ffffff;
+}
 
 .switch{
   margin-right: 10%;
@@ -186,7 +189,7 @@ img.light_mode { cursor: pointer; }
 }
 
 
-/* --- THEMES (ТЕМНАЯ / СВЕТЛАЯ) --- */
+/* --- (ТЕМНАЯ / СВЕТЛАЯ) --- */
 body.dark { background-color: #1b1b1b; }
 body.dark .box { background-color: #1b1b1b; }
 body.light { background-color: #ffffff; }
@@ -198,8 +201,12 @@ body.light img.dark_mode { display: block; }
 body.light img.light_mode { display: none; }
 body.dark  img.dark_mode  { display: none; }
 body.dark  img.light_mode { display: block; }
+body.light input:-ms-input-placeholder,
+body.light textarea:-ms-input-placeholder {
+  color: #9ca3af
+}
 
-/* Стили для светлой темы: изменяем цвета текста и кнопок */
+/* Стили для светлой темы */
 body.light .hero_title { color: #1b1b1b; }
 body.light .hero_title span { -webkit-text-stroke: 1.5px #1b1b1b; }
 body.light .hero_subtitle, body.light .hero_description { color: #6b7280; }
@@ -209,8 +216,42 @@ body.light .btn_primary:hover { background-color: transparent; color: #1b1b1b; }
 body.light .about_me { background-color: #ffffff; }
 body.light .about_description { color: #6b7280; }
 body.light .glitch-text { color: #1b1b1b99; }
+body.light .about_me,
+body.light .skills_section,
+body.light .experience_section,
+body.light .contact_section,
+body.light footer {
+  background-color: #ffffff;
+  color: #1b1b1b;
+}
+body.light .experience_stick {background-color: ;}
+body.light p,
+body.light h3{color: #000000}
 
-/* Center all glitch title decorations horizontally */
+.about_description { color: #6b7280; }
+
+body.light input,
+body.light textarea {
+  background-color: #fafafa;
+  color: inherit;
+  border: 1px solid #e6e6e6;
+}
+body.light input::placeholder,
+body.light textarea::placeholder {
+  color: currentColor;
+  opacity: 0.6;
+}
+body.light input::-webkit-input-placeholder,
+body.light textarea::-webkit-input-placeholder {
+  color: currentColor;
+  opacity: 0.6;
+}
+body.light input:-ms-input-placeholder,
+body.light textarea:-ms-input-placeholder {
+  color: currentColor;
+  opacity: 0.6;
+}
+
 .glitch-text {
   left: 50%;
   transform: translateX(-50%);
@@ -454,7 +495,7 @@ body.light .glitch-text { color: #1b1b1b99; }
   flex-direction: column;
   align-items: center;
   gap: 60px;
-  padding-top: 15%;
+  padding-top: 3%;
 }
 .skills_section .section_title.glitch-text {
   position: absolute;
