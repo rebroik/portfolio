@@ -224,9 +224,16 @@ body.light footer {
   background-color: #ffffff;
   color: #1b1b1b;
 }
-body.light .experience_stick {background-color: ;}
+body.light .experience_stick {background: #303030;}
+body.light .experience_year,
+body.light h3 {color: #000000; font-weight: bold; font-size: 20px;}
+body.dark h3, .experience_year {color: #ffffff; font-weight: bold; font-size: 20px;}
+body.dark p {color: #777c86;}
+
 body.light p,
-body.light h3{color: #000000}
+body.light .experience_heading {color: #6b7280;}
+
+body.light .experience_heading {font-size: 25px;}
 
 .about_description { color: #6b7280; }
 
@@ -934,6 +941,22 @@ body.light .skill_item:hover .skill_label {
   width: 2px;
   height: 55%;
   background-color: #494949;
+  position: relative;
+  overflow: hidden;
+  --progress: 0%;
+}
+
+.experience_stick::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: var(--progress);
+  background: linear-gradient(180deg, #ffffff, #888888);
+  box-shadow: 0 0 10px rgba(255, 255, 255, 0.3);
+  transition: height 0.1s ease-out;
+  z-index: 2;
 }
 .experience_container {
   position: relative;
