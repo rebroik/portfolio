@@ -889,8 +889,8 @@ body.light .skill_item:hover .skill_label {
   color: #9ca3af;
   letter-spacing: 2px;
   font-weight: 500;
-  margin-left: 23%;
-  transform: translateX(-50%);
+  margin-left: -7%;
+  transform: translateX(-100%);
 }
 .experience_timeline {
   width: 100%;
